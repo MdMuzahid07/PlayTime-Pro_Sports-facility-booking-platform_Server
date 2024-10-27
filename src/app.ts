@@ -9,6 +9,7 @@ import { FacilityRoutes } from "./app/modules/facility/facility.routes";
 import { BookingsRoutes } from "./app/modules/bookings/bookings.routes";
 import { paymentRoutes } from "./app/modules/payment/payment.routes";
 import { ProductRoutes } from "./app/modules/products/product.routes";
+import { TestimonialRoutes } from "./app/modules/testimonials/testimonials.routes";
 
 const app: Application = express();
 
@@ -26,6 +27,7 @@ app.use("/api", FacilityRoutes);
 app.use("/api", BookingsRoutes);
 app.use("/api/product", ProductRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/testimonial", TestimonialRoutes);
 
 // test route
 app.get("/", (req: Request, res: Response) => {

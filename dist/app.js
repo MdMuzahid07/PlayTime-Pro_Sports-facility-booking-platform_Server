@@ -14,6 +14,7 @@ const facility_routes_1 = require("./app/modules/facility/facility.routes");
 const bookings_routes_1 = require("./app/modules/bookings/bookings.routes");
 const payment_routes_1 = require("./app/modules/payment/payment.routes");
 const product_routes_1 = require("./app/modules/products/product.routes");
+const testimonials_routes_1 = require("./app/modules/testimonials/testimonials.routes");
 const app = (0, express_1.default)();
 // parsers
 app.use(express_1.default.json());
@@ -28,6 +29,7 @@ app.use("/api", facility_routes_1.FacilityRoutes);
 app.use("/api", bookings_routes_1.BookingsRoutes);
 app.use("/api/product", product_routes_1.ProductRoutes);
 app.use("/api/payment", payment_routes_1.paymentRoutes);
+app.use("/api/testimonial", testimonials_routes_1.TestimonialRoutes);
 // test route
 app.get("/", (req, res) => {
     res.send("Server running");
