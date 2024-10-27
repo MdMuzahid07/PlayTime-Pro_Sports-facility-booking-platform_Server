@@ -15,6 +15,8 @@ const bookings_routes_1 = require("./app/modules/bookings/bookings.routes");
 const payment_routes_1 = require("./app/modules/payment/payment.routes");
 const product_routes_1 = require("./app/modules/products/product.routes");
 const testimonials_routes_1 = require("./app/modules/testimonials/testimonials.routes");
+const order_routes_1 = require("./app/modules/oder/order.routes");
+const cart_routes_1 = require("./app/modules/cart/cart.routes");
 const app = (0, express_1.default)();
 // parsers
 app.use(express_1.default.json());
@@ -30,6 +32,8 @@ app.use("/api", bookings_routes_1.BookingsRoutes);
 app.use("/api/product", product_routes_1.ProductRoutes);
 app.use("/api/payment", payment_routes_1.paymentRoutes);
 app.use("/api/testimonial", testimonials_routes_1.TestimonialRoutes);
+app.use("/api/order", order_routes_1.OrderRoutes);
+app.use("/api/cart", cart_routes_1.CartRoutes);
 // test route
 app.get("/", (req, res) => {
     res.send("Server running");

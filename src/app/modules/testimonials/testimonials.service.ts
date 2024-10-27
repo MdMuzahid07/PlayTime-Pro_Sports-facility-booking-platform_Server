@@ -5,7 +5,7 @@ import TestimonialModel from "./testimonials.model";
 
 const createTestimonialIntoDB = async (payload: TTestimonials) => {
 
-    const isExists = await TestimonialModel.find({ name: payload?.name });
+    const isExists = await TestimonialModel.findOne({ name: payload?.name });
     if (isExists) {
         throw new Error("already added");
     }

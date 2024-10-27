@@ -10,6 +10,8 @@ import { BookingsRoutes } from "./app/modules/bookings/bookings.routes";
 import { paymentRoutes } from "./app/modules/payment/payment.routes";
 import { ProductRoutes } from "./app/modules/products/product.routes";
 import { TestimonialRoutes } from "./app/modules/testimonials/testimonials.routes";
+import { OrderRoutes } from "./app/modules/oder/order.routes";
+import { CartRoutes } from "./app/modules/cart/cart.routes";
 
 const app: Application = express();
 
@@ -28,6 +30,8 @@ app.use("/api", BookingsRoutes);
 app.use("/api/product", ProductRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/testimonial", TestimonialRoutes);
+app.use("/api/order", OrderRoutes);
+app.use("/api/cart", CartRoutes);
 
 // test route
 app.get("/", (req: Request, res: Response) => {
