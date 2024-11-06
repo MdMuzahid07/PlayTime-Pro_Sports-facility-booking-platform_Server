@@ -12,8 +12,14 @@ router.post(
   UserController.createUser,
 );
 
+router.post(
+  "/auth/user/:userId",
+  UserController.getUserById,
+);
+
+
 router.patch(
-  "/auth/profile-update",
+  "/auth/profile-update/:userId",
   multerUpload.single("file"),
   (req: Request, res: Response, next: NextFunction) => {
     if (req?.body?.data) {

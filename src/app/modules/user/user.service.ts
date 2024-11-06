@@ -99,9 +99,24 @@ const updateUserInfo = async (file: any, id: string, payload: any) => {
 };
 
 
+const getUserByIdFromDB = async (id: string) => {
+  const res = await UserModel.findById(id);
+
+  // checking user exist or not
+  if (!res) {
+    throw new CustomAppError(
+      httpStatus.BAD_REQUEST,
+      "user not exists",
+    );
+  }
+
+  return res;
+};
+
 
 
 export const UserService = {
   createUserIntoDB,
-  updateUserInfo
+  updateUserInfo,
+  getUserByIdFromDB
 };
