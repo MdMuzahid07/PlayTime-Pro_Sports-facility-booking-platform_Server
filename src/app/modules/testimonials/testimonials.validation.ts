@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const testimonialsValidationSchema = z.object({
     name: z.string(),
+    email: z.string(),
     image: z.string(),
     occupation: z.string(),
     testimonialText: z.string()
@@ -11,6 +12,7 @@ export const testimonialsValidationSchema = z.object({
 
 export const testimonialsUpdateValidationSchema = z.object({
     name: z.string().optional(),
+    email: z.string().optional(),
     image: z.string().optional(),
     occupation: z.string().optional(),
     testimonialText: z.string().optional(),

@@ -1,7 +1,16 @@
+export type TShippingAddress = {
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+};
+
 export type TUser = {
   name: string;
   email: string;
   password: string;
+  shippingAddress: TShippingAddress[];
   phone: string;
   role: "admin" | "user";
   address: string;

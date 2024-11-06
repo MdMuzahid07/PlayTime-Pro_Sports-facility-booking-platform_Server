@@ -9,6 +9,11 @@ export const TestimonialSchema = new mongoose.Schema<TTestimonials>(
             unique: true,
             required: true
         },
+        email: {
+            type: String,
+            unique: true,
+            required: true
+        },
         image: {
             type: String,
             required: true

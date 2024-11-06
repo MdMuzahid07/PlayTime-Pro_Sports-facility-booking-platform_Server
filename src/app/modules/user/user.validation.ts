@@ -1,5 +1,15 @@
 import { z } from "zod";
 
+
+const ShippingAddressValidationSchema = z.object({
+  street: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  postalCode: z.string().optional(),
+  country: z.string().optional(),
+});
+
+
 const UserValidationSchema = z.object({
   name: z.string(),
   email: z.string(),
@@ -9,6 +19,7 @@ const UserValidationSchema = z.object({
   phone: z.string(),
   role: z.enum(["admin", "user"]),
   address: z.string(),
+  shippingAddress: z.array(ShippingAddressValidationSchema),
   isDeleted: z.boolean().optional(),
 });
 

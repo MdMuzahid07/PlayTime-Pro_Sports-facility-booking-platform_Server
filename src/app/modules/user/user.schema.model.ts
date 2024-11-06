@@ -1,23 +1,46 @@
 import mongoose from "mongoose";
-import { TUser } from "./user.interface";
+import { TShippingAddress, TUser } from "./user.interface";
+
+
+const ShippingAddressSchema = new mongoose.Schema<TShippingAddress>(
+  {
+    street: {
+      type: String,
+      trim: true,
+    },
+    city: {
+      type: String,
+      trim: true,
+    },
+    state: {
+      type: String,
+      trim: true,
+    },
+    postalCode: {
+      type: String,
+      trim: true,
+    },
+    country: {
+      type: String,
+      trim: true,
+    },
+  }
+);
+
 
 const UserSchema = new mongoose.Schema<TUser>(
   {
     name: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
-      required: true,
     },
     password: {
       type: String,
-      required: true,
     },
     phone: {
       type: String,
-      required: true,
     },
     role: {
       type: String,
@@ -25,12 +48,15 @@ const UserSchema = new mongoose.Schema<TUser>(
     },
     address: {
       type: String,
-      required: true,
     },
     isDeleted: {
       type: Boolean,
       default: false,
     },
+    shippingAddress: {
+      type: [ShippingAddressSchema],
+      default: []
+    }
   },
   {
     timestamps: true,
