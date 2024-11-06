@@ -36,8 +36,9 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 const updateUser = tryCatchAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
   const payload = req.body;
+  const file = req.file;
 
-  const result = await UserService.updateUserInfo(userId, payload);
+  const result = await UserService.updateUserInfo(file, userId, payload);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

@@ -71,7 +71,7 @@ const createUserIntoDB = async (payload: TUser) => {
 
 
 
-const updateUserInfo = async (id: string, payload: any) => {
+const updateUserInfo = async (file: any, id: string, payload: any) => {
   const isUserExists = await UserModel.findById(id);
 
   // checking user exist or not
@@ -82,10 +82,15 @@ const updateUserInfo = async (id: string, payload: any) => {
     );
   }
 
+  const userInfo: Partial<TUser> = { ...payload };
+
+  if (file && payload) {
+    userInfo.avatar = file?.path;
+  }
 
   const res = await UserModel.findByIdAndUpdate(
     id,
-    { $set: payload },
+    { $set: userInfo },
     { new: true }
   );
 
