@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status";
 import CustomAppError from "../../errors/CustomAppError";
 import { TUser } from "./user.interface";
@@ -64,6 +65,38 @@ const createUserIntoDB = async (payload: TUser) => {
   };
 };
 
+
+
+
+
+
+
+const updateUserInfo = async (id: string, payload: any) => {
+  const isUserExists = await UserModel.findById(id);
+
+  // checking user exist or not
+  if (!isUserExists) {
+    throw new CustomAppError(
+      httpStatus.BAD_REQUEST,
+      "user not exists, can't update info",
+    );
+  }
+
+
+  const res = await UserModel.findByIdAndUpdate(
+    id,
+    { $set: payload },
+    { new: true }
+  );
+
+
+  return res;
+};
+
+
+
+
 export const UserService = {
   createUserIntoDB,
+  updateUserInfo
 };

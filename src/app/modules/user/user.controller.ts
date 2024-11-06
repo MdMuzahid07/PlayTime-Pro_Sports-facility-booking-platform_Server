@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 import sendResponse from "../../utils/send.response";
 import { UserService } from "./user.service";
 import config from "../../config";
+import tryCatchAsync from "../../utils/tryCatchAsync";
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -27,6 +28,29 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+
+
+
+
+
+const updateUser = tryCatchAsync(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const payload = req.body;
+
+  const result = await UserService.updateUserInfo(userId, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "user info update successfully",
+    data: result
+  });
+});
+
+
+
+
 export const UserController = {
   createUser,
+  updateUser
 };
