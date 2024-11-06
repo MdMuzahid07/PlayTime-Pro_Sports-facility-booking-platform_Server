@@ -11,4 +11,11 @@ router.post(
   UserController.createUser,
 );
 
+router.patch(
+  "/auth/profile-update",
+  requestValidator(UserValidation.UserValidationSchema),
+  UserController.updateUser,
+);
+
+
 export const UserRoutes = router;
