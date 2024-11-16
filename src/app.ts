@@ -30,7 +30,7 @@ app.use("/api", BookingsRoutes);
 app.use("/api/product", ProductRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/testimonial", TestimonialRoutes);
-app.use("/api/order", OrderRoutes);
+app.use("/api/orders", OrderRoutes);
 app.use("/api/cart", CartRoutes);
 
 // test route

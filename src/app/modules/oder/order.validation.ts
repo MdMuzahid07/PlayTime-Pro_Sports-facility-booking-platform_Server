@@ -9,18 +9,19 @@ const AddressValidationSchema = z.object({
 });
 
 const CustomerDetailsValidationSchema = z.object({
-    name: z.string(),
-    email: z.string(),
-    phoneNumber: z.string(),
+    userId: z.string(),
+    // name: z.string(),
+    // email: z.string(),
+    // phoneNumber: z.string(),
     address: AddressValidationSchema
 });
 
 
 // enum
 
-const PaymentMethodsValidationSchema = z.enum(["Stripe", "COD"]);
-const PaymentStatusValidationSchema = z.enum(["Paid", "Pending", "Failed"]);
-const OrderStatusValidationSchema = z.enum(["Pending", "Processing", "Completed", "Cancelled"]);
+const PaymentMethodsValidationSchema = z.enum(["Stripe", "COD", "Pending"]).optional();
+const PaymentStatusValidationSchema = z.enum(["Paid", "Pending", "Failed"]).optional();
+const OrderStatusValidationSchema = z.enum(["Pending", "Processing", "Delivered", "Cancelled"]).optional();
 
 
 const OrderValidationSchema = z.object({

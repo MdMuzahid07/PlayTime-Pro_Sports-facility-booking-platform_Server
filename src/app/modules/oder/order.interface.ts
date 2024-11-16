@@ -10,9 +10,10 @@ export interface TAddress {
 };
 
 export interface TCustomerDetails {
-    name: string;
-    email: string;
-    phoneNumber: string;
+    userId: string;
+    // name: string;
+    // email: string;
+    // phoneNumber: string;
     address: TAddress
 };
 

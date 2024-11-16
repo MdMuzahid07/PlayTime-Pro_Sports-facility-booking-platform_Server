@@ -27,18 +27,22 @@ const CustomerAddressSchema: Schema = new mongoose.Schema<TAddress>({
 
 
 const CustomerDetailsSchema: Schema = new mongoose.Schema<TCustomerDetails>({
-    name: {
+    userId: {
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        required: true
-    },
-    phoneNumber: {
-        type: String,
-        required: true
-    },
+    // name: {
+    //     type: String,
+    //     required: true
+    // },
+    // email: {
+    //     type: String,
+    //     required: true
+    // },
+    // phoneNumber: {
+    //     type: String,
+    //     required: true
+    // },
     address: {
         type: CustomerAddressSchema,
         required: true
@@ -59,17 +63,17 @@ export const OrderSchema: Schema = new mongoose.Schema<TOrder>({
     },
     paymentMethod: {
         type: String,
-        enum: ["Stripe", "COD"],
-        required: true
+        enum: ["Aamarpay", "COD", "Pending"],
+        default: "Pending"
     },
     paymentStatus: {
         type: String,
         enum: ["Paid", "Pending", "Failed"],
-        required: true
+        default: "Pending"
     },
     orderStatus: {
         type: String,
-        enum: ["Pending", "Processing", "Completed", "Cancelled"],
-        required: true
+        enum: ["Pending", "Processing", "Delivered", "Cancelled"],
+        default: "Pending"
     },
 });
