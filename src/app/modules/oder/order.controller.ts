@@ -72,10 +72,27 @@ const deleteAOrder: RequestHandler = tryCatchAsync(async (req: Request, res: Res
 });
 
 
+
+// COD - Cash On Delivery
+const paymentMethodUpdate: RequestHandler = tryCatchAsync(async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+
+    const result = await OrderService.manageSportsEquipmentsPaymentStatusFromDB(orderId);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Payment method updated successfully",
+        data: result
+    });
+});
+
+
 export const OrderController = {
     createOrder,
     getAllOrder,
     getASingleOrder,
     updateAOrder,
-    deleteAOrder
+    deleteAOrder,
+    paymentMethodUpdate
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TOrder } from "./order.interface";
 import OrderModel from "./order.model";
 
@@ -41,10 +42,37 @@ const deleteAOrderFromDB = async (id: string) => {
 };
 
 
+const manageSportsEquipmentsPaymentStatusFromDB = async (id: string) => {
+
+    // checking is exists
+    const isExists = await OrderModel?.findById(id);
+
+    if (!isExists) {
+        throw new Error("this Order not exists in DB");
+    }
+
+    const result = await OrderModel.findOneAndUpdate(
+        { _id: id },
+        {
+            $set: {
+                paymentMethod: "COD"
+            }
+        },
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+
+    return result;
+};
+
+
 export const OrderService = {
     createOrderIntoDB,
     getAllOrderFromDB,
     getAOrderFromDB,
     updateAOrderFromDB,
-    deleteAOrderFromDB
+    deleteAOrderFromDB,
+    manageSportsEquipmentsPaymentStatusFromDB
 };

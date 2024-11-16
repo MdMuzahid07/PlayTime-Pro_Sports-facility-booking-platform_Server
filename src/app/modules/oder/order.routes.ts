@@ -22,11 +22,19 @@ router.get(
     OrderController.getASingleOrder
 );
 
+
 router.patch(
     "/:orderId",
     OrderController.updateAOrder
 
 );
+
+
+router.patch(
+    "/payment-method/:orderId",
+    OrderController.paymentMethodUpdate
+);
+
 
 router.delete(
     "/:orderId",
