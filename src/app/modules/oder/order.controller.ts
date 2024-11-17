@@ -93,8 +93,6 @@ const adminManageOrderStatusUpdate: RequestHandler = tryCatchAsync(async (req: R
     const { orderId } = req.params;
     const payload = req.body.orderStatus;
 
-    console.log(payload, "🐞🐞🐞🐞🐞🐞🐞")
-
     const result = await OrderService.adminManageSportsEquipmentsOrderStatusFromDB(orderId, payload);
 
     sendResponse(res, {
