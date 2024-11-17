@@ -32,7 +32,7 @@ app.use("/api", bookings_routes_1.BookingsRoutes);
 app.use("/api/product", product_routes_1.ProductRoutes);
 app.use("/api/payment", payment_routes_1.paymentRoutes);
 app.use("/api/testimonial", testimonials_routes_1.TestimonialRoutes);
-app.use("/api/order", order_routes_1.OrderRoutes);
+app.use("/api/orders", order_routes_1.OrderRoutes);
 app.use("/api/cart", cart_routes_1.CartRoutes);
 // test route
 app.get("/", (req, res) => {

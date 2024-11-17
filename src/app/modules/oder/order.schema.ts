@@ -28,7 +28,8 @@ const CustomerAddressSchema: Schema = new mongoose.Schema<TAddress>({
 
 const CustomerDetailsSchema: Schema = new mongoose.Schema<TCustomerDetails>({
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "User",
         required: true
     },
     // name: {
@@ -76,4 +77,8 @@ export const OrderSchema: Schema = new mongoose.Schema<TOrder>({
         enum: ["Pending", "Processing", "Delivered", "Cancelled"],
         default: "Pending"
     },
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 });

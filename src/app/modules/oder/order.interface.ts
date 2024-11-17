@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { TOrderStatus, TPaymentMethods, TPaymentStatus } from "./order.constants";
 
 export interface TAddress {
@@ -10,7 +10,7 @@ export interface TAddress {
 };
 
 export interface TCustomerDetails {
-    userId: string;
+    userId: mongoose.Types.ObjectId;
     // name: string;
     // email: string;
     // phoneNumber: string;
@@ -24,4 +24,5 @@ export interface TOrder {
     paymentMethod: TPaymentMethods;
     paymentStatus: TPaymentStatus;
     orderStatus: TOrderStatus;
+    deleted: boolean;
 };

@@ -36,6 +36,12 @@ router.patch(
 );
 
 
+router.patch(
+    "/order-status-manage/:orderId",
+    OrderController.adminManageOrderStatusUpdate
+);
+
+
 router.delete(
     "/:orderId",
     OrderController.deleteAOrder

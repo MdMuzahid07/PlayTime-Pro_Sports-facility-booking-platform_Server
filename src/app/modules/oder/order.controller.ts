@@ -88,11 +88,30 @@ const paymentMethodUpdate: RequestHandler = tryCatchAsync(async (req: Request, r
 });
 
 
+
+const adminManageOrderStatusUpdate: RequestHandler = tryCatchAsync(async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    const payload = req.body.orderStatus;
+
+    console.log(payload, "🐞🐞🐞🐞🐞🐞🐞")
+
+    const result = await OrderService.adminManageSportsEquipmentsOrderStatusFromDB(orderId, payload);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Order status updated successfully",
+        data: result
+    });
+});
+
+
 export const OrderController = {
     createOrder,
     getAllOrder,
     getASingleOrder,
     updateAOrder,
     deleteAOrder,
-    paymentMethodUpdate
+    paymentMethodUpdate,
+    adminManageOrderStatusUpdate
 };

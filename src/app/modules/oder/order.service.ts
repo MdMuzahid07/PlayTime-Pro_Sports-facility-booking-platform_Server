@@ -19,7 +19,14 @@ const createOrderIntoDB = async (payload: TOrder) => {
 };
 
 const getAllOrderFromDB = async () => {
-    const result = await OrderModel.find().populate("cartId");
+    const result = await OrderModel.find().populate({
+        path: "cartId",
+        populate: {
+            path: "userId",
+        },
+    }).populate("customerDetails.userId");
+
+
     return result;
 };
 
@@ -37,7 +44,26 @@ const updateAOrderFromDB = async (id: string, payload: Partial<TOrder>) => {
 };
 
 const deleteAOrderFromDB = async (id: string) => {
-    const result = await OrderModel.findOneAndDelete({ _id: id });
+    // checking is exists
+    const isExists = await OrderModel?.findById(id);
+
+    if (!isExists) {
+        throw new Error("this Order not exists in DB");
+    }
+
+    const result = await OrderModel.findOneAndUpdate(
+        { _id: id },
+        {
+            $set: {
+                deleted: true
+            }
+        },
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+
     return result;
 };
 
@@ -68,11 +94,47 @@ const manageSportsEquipmentsPaymentStatusFromDB = async (id: string) => {
 };
 
 
+
+
+const adminManageSportsEquipmentsOrderStatusFromDB = async (id: string, payload: string) => {
+
+    // checking is exists
+    const isExists = await OrderModel?.findById(id);
+
+    if (!isExists) {
+        throw new Error("this Order not exists in DB");
+    }
+
+    if (typeof payload !== "string") {
+        throw new Error("Invalid payload: orderStatus must be a string.");
+    }
+
+
+    const result = await OrderModel.findOneAndUpdate(
+        { _id: id },
+        {
+            $set: {
+                orderStatus: payload
+            }
+        },
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+
+    return result;
+};
+
+
+
+
 export const OrderService = {
     createOrderIntoDB,
     getAllOrderFromDB,
     getAOrderFromDB,
     updateAOrderFromDB,
     deleteAOrderFromDB,
-    manageSportsEquipmentsPaymentStatusFromDB
+    manageSportsEquipmentsPaymentStatusFromDB,
+    adminManageSportsEquipmentsOrderStatusFromDB
 };
