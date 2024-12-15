@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post(
     "/create-product",
-    multerUpload.single("file"),
+    multerUpload.array("files"),
     (req: Request, res: Response, next: NextFunction) => {
         req.body = JSON.parse(req.body.data);
         next();

@@ -6,7 +6,7 @@ import ProductModel from "./product.model";
 
 
 
-const addProductIntoDB = async (file: any, payload: TProduct) => {
+const addProductIntoDB = async (files: any[], payload: TProduct) => {
 
     // create an product object
     const product: Partial<TProduct> = { ...payload };
@@ -21,8 +21,8 @@ const addProductIntoDB = async (file: any, payload: TProduct) => {
         throw new Error("this product already added");
     }
 
-    if (file && payload) {
-        product.imageUrl = file?.path;
+    if (files && payload) {
+        product.imageUrl = files?.map((file) => file.path);
     }
 
     const result = await ProductModel.create(product);

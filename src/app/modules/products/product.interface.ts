@@ -5,6 +5,6 @@ export interface TProduct {
     description: string;
     price: number;
     quantity: number;
-    imageUrl: string;
+    imageUrl: string[];
     stock: number;
 };

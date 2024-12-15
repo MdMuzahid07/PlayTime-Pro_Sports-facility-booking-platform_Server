@@ -26,8 +26,8 @@ export const ProductSchema = new mongoose.Schema<TProduct>(
             required: true
         },
         imageUrl: {
-            type: String,
-            default: " "
+            type: [String],
+            default: []
         }
     },
     {

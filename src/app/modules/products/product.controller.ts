@@ -10,7 +10,7 @@ import tryCatchAsync from "../../utils/tryCatchAsync";
 //* tryCatchAsync , is an HOC, its take this function an return if resolved the promise, or send error to the global error handler
 
 const addProduct: RequestHandler = tryCatchAsync(async (req: Request, res: Response) => {
-    const result = await ProductService.addProductIntoDB((req as any).file, req.body);
+    const result = await ProductService.addProductIntoDB((req as any).files, req.body);
 
     // sendResponse is a util function
     sendResponse(res, {
