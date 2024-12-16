@@ -31,8 +31,8 @@ const updateFacility = async (
   try {
     const { id } = req.params;
     const updateData = req.body;
+    const result = await FacilityServices.updateFacilityFromDB(id, (req as any).files, updateData);
 
-    const result = await FacilityServices.updateFacilityFromDB(id, updateData);
 
     sendResponse(res, {
       success: true,

@@ -24,6 +24,11 @@ router.post(
 router.patch(
   "/facility/:id",
   authValidation(USER_ROLES.admin),
+  multerUpload.array("files"),
+  (req: Request, res: Response, next: NextFunction) => {
+    req.body = JSON.parse(req.body.data);
+    next();
+  },
   requestValidator(FacilityValidation.UpdateFacilityValidationSchema),
   FacilityController.updateFacility,
 );

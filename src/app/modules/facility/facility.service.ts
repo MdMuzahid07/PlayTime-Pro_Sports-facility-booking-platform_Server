@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status";
 import CustomAppError from "../../errors/CustomAppError";
 import { TFacility } from "./facility.interface";
@@ -45,14 +46,13 @@ const createFacilityIntoDB = async (files: any[], payload: TFacility) => {
 
 
 
-const updateFacilityFromDB = async (id: string, payload: TFacility) => {
+const updateFacilityFromDB = async (id: string, files: any[], payload: Partial<TFacility>) => {
+
+  // Create an update object
+  const updateData: Partial<TFacility> = { ...payload };
 
   if (!id) {
     throw new Error("Id is required to update facility");
-  }
-
-  if (!payload) {
-    throw new Error("Data is required to update facility");
   }
 
   const isFacilityExists = await FacilityModel.findById({ _id: id });
@@ -61,10 +61,15 @@ const updateFacilityFromDB = async (id: string, payload: TFacility) => {
     throw new Error("This facility not exists to update");
   }
 
+  // Add the file path if a file is provided
+  if (files) {
+    updateData.image = files?.map((file: any) => file.path);
+  }
+
   const responseAfterUpdate = await FacilityModel.findByIdAndUpdate(
     id,
     // we use $set operator to update specific field
-    { $set: payload },
+    { $set: updateData },
     {
       new: true,
       runValidators: true
@@ -82,9 +87,6 @@ const updateFacilityFromDB = async (id: string, payload: TFacility) => {
 
   return result;
 };
-
-
-
 
 
 const deleteFacilityFromDB = async (id: string) => {

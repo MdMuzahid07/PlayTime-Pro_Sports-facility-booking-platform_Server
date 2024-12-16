@@ -3,23 +3,19 @@ import mongoose from "mongoose";
 const FacilitySchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
   },
   description: {
     type: String,
-    required: true,
   },
   pricePerHour: {
     type: Number,
-    required: true,
   },
   location: {
     type: String,
-    required: true,
   },
   image: {
     type: [String],
-    default: "",
+    default: [],
     required: true
   },
   isDeleted: {
