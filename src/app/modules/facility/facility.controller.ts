@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
 import sendResponse from "../../utils/send.response";
 import httpStatus from "http-status";
@@ -9,7 +10,7 @@ const createFacility = async (
   next: NextFunction,
 ) => {
   try {
-    const result = await FacilityServices.createFacilityIntoDB(req.body);
+    const result = await FacilityServices.createFacilityIntoDB((req as any).files, req.body);
 
     sendResponse(res, {
       success: true,

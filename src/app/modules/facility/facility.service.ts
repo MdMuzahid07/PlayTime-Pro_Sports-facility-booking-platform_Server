@@ -3,7 +3,12 @@ import CustomAppError from "../../errors/CustomAppError";
 import { TFacility } from "./facility.interface";
 import FacilityModel from "./facility.schema.model";
 
-const createFacilityIntoDB = async (payload: TFacility) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const createFacilityIntoDB = async (files: any[], payload: TFacility) => {
+
+  // create an facility object
+  const facility: Partial<TFacility> = { ...payload };
+
   const isFacilityExists = await FacilityModel.findOne({
     name: payload?.name,
     description: payload?.description,
@@ -16,7 +21,13 @@ const createFacilityIntoDB = async (payload: TFacility) => {
     );
   }
 
-  const responseAfterSave = await FacilityModel.create(payload);
+
+  if (files && payload) {
+    facility.image = files?.map((file) => file.path);
+  }
+
+
+  const responseAfterSave = await FacilityModel.create(facility);
 
   const result = responseAfterSave.toObject() as Partial<TFacility>;
 
@@ -29,6 +40,10 @@ const createFacilityIntoDB = async (payload: TFacility) => {
 
   return result;
 };
+
+
+
+
 
 const updateFacilityFromDB = async (id: string, payload: TFacility) => {
 
@@ -68,6 +83,10 @@ const updateFacilityFromDB = async (id: string, payload: TFacility) => {
   return result;
 };
 
+
+
+
+
 const deleteFacilityFromDB = async (id: string) => {
 
 
@@ -97,6 +116,9 @@ const deleteFacilityFromDB = async (id: string) => {
   return result;
 };
 
+
+
+
 const getAllFacilitiesFromDB = async () => {
   const response = await FacilityModel.find({ isDeleted: false });
 
@@ -118,10 +140,23 @@ const getAllFacilitiesFromDB = async () => {
   return result;
 };
 
+
+
+
+
 const getASingleFacilityFromDB = async (id: string) => {
   const result = await FacilityModel.findById(id);
+  if (!result) {
+    throw new Error("Facility not found by id");
+  }
   return result;
 };
+
+
+
+
+
+
 
 export const FacilityServices = {
   createFacilityIntoDB,

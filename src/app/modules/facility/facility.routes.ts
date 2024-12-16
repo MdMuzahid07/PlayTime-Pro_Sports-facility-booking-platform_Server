@@ -1,9 +1,10 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { FacilityController } from "./facility.controller";
 import { FacilityValidation } from "./facility.validation";
 import requestValidator from "../../middlewares/requestValidator";
 import authValidation from "../../middlewares/authValidation";
 import { USER_ROLES } from "../auth/auth.constants";
+import { multerUpload } from "../../config/multer.config";
 // import { USER_ROLES } from "../auth/auth.constants";
 
 const router = express.Router();
@@ -11,6 +12,11 @@ const router = express.Router();
 router.post(
   "/facility",
   authValidation(USER_ROLES.admin),
+  multerUpload.array("files"),
+  (req: Request, res: Response, next: NextFunction) => {
+    req.body = JSON.parse(req.body.data);
+    next();
+  },
   requestValidator(FacilityValidation.FacilityValidationSchema),
   FacilityController.createFacility,
 );

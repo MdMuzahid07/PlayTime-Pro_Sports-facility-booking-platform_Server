@@ -18,7 +18,7 @@ const FacilitySchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String,
+    type: [String],
     default: "",
     required: true
   },
