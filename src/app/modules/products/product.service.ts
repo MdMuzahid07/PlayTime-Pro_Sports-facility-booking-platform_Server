@@ -112,18 +112,16 @@ const getProductsFromDB = async (query: Record<string, unknown>) => {
         skip = (page - 1) * limit;
     }
 
-    const paginateQuery = sortingQuery.skip(skip);
+    const paginateQuery = sortingQuery?.skip(skip);
 
 
     // last phase for resolving after all method chaining
-    const result = await paginateQuery.limit(limit);
+    const result = await paginateQuery?.limit(limit);
 
     //! limit, pagination ======> end here <=======
 
     return result;
 };
-
-
 
 
 
@@ -137,26 +135,28 @@ const getAProductFromDB = async (id: string) => {
 
 
 
+const updateAProductFromDB = async (id: string, files: any[], payload: Partial<TProduct>) => {
 
+    // Create an update object
+    const updateData: Partial<TProduct> = { ...payload };
 
-const updateAProductFromDB = async (id: string, file: any, payload: Partial<TProduct>) => {
-
-    // create a product object
-    const product: Partial<TProduct> = { ...payload };
-
-    if (file) {
-
-        product.imageUrl = file.path;
+    // Add the file path if a file is provided
+    if (files) {
+        updateData.imageUrl = files?.map((file: any) => file.path);
     }
 
-    const result = await ProductModel.findOneAndUpdate({ _id: id }, product, {
-        new: true,
-        runValidators: true,
-    });
+    // Use $set to update only the specified fields
+    const result = await ProductModel.findByIdAndUpdate(
+        id,
+        { $set: updateData },
+        {
+            new: true, // Return the updated document
+            runValidators: true, // Ensure validation rules are enforced
+        }
+    );
 
     return result;
 };
-
 
 
 

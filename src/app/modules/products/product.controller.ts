@@ -50,7 +50,7 @@ const getASingleProduct: RequestHandler = tryCatchAsync(async (req: Request, res
 
 const updateAProduct: RequestHandler = tryCatchAsync(async (req: Request, res: Response) => {
     const { productId } = req.params;
-    const result = await ProductService.updateAProductFromDB(productId, (req as any).file, req.body);
+    const result = await ProductService.updateAProductFromDB(productId, (req as any).files, req.body);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
