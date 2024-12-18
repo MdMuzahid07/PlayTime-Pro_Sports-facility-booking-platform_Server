@@ -37,11 +37,10 @@ const getReviewsByUserIDFromDB = async (id: string) => {
 
 
 
-const deleteAReview = async (id: string) => {
-    const result = await ReviewModel.findOneAndDelete({ _id: id });
+const deleteAReview = async (reviewId: string, userId: string) => {
+    const result = await ReviewModel.findOneAndDelete({ _id: reviewId, userId: userId });
     return result;
 };
-
 
 
 

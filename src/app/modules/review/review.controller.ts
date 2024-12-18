@@ -46,8 +46,8 @@ const getReviewByUserId: RequestHandler = tryCatchAsync(async (req: Request, res
 });
 
 const deleteAReview: RequestHandler = tryCatchAsync(async (req: Request, res: Response) => {
-    const { productId } = req.params;
-    const result = await ReviewService.deleteAReview(productId);
+    const { reviewId, userId } = req.params;
+    const result = await ReviewService.deleteAReview(reviewId, userId);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

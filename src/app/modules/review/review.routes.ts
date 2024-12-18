@@ -28,7 +28,7 @@ router.get(
 
 
 router.delete(
-    "/:productId",
+    "/:reviewId/:userId",
     ReviewController.deleteAReview
 );
 
