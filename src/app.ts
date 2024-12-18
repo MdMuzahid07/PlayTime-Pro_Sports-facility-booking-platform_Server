@@ -12,6 +12,7 @@ import { ProductRoutes } from "./app/modules/products/product.routes";
 import { TestimonialRoutes } from "./app/modules/testimonials/testimonials.routes";
 import { OrderRoutes } from "./app/modules/oder/order.routes";
 import { CartRoutes } from "./app/modules/cart/cart.routes";
+import { ReviewRoutes } from "./app/modules/review/review.routes";
 
 const app: Application = express();
 
@@ -32,6 +33,7 @@ app.use("/api/payment", paymentRoutes);
 app.use("/api/testimonial", TestimonialRoutes);
 app.use("/api/orders", OrderRoutes);
 app.use("/api/cart", CartRoutes);
+app.use("/api/review", ReviewRoutes);
 
 // test route
 app.get("/", (req: Request, res: Response) => {
