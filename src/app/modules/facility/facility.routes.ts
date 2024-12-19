@@ -26,7 +26,9 @@ router.patch(
   authValidation(USER_ROLES.admin),
   multerUpload.array("files"),
   (req: Request, res: Response, next: NextFunction) => {
-    req.body = JSON.parse(req.body.data);
+    if (req?.body?.data) {
+      req.body = JSON.parse(req.body.data);
+    }
     next();
   },
   requestValidator(FacilityValidation.UpdateFacilityValidationSchema),

@@ -30,7 +30,7 @@ router.get(
 
 router.patch(
     "/:productId",
-    multerUpload.single("files"),
+    multerUpload.array("files"),
     (req: Request, res: Response, next: NextFunction) => {
         if (req?.body?.data) {
             req.body = JSON.parse(req.body.data);
