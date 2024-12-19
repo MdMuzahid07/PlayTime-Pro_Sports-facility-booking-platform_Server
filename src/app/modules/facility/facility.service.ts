@@ -62,7 +62,7 @@ const updateFacilityFromDB = async (id: string, files: any[], payload: Partial<T
   }
 
   // Add the file path if a file is provided
-  if (files) {
+  if (files && (files?.length > 0)) {
     updateData.image = files?.map((file: any) => file.path);
   }
 

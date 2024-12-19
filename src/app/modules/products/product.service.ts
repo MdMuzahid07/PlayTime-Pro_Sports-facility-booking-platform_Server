@@ -141,7 +141,7 @@ const updateAProductFromDB = async (id: string, files: any[], payload: Partial<T
     const updateData: Partial<TProduct> = { ...payload };
 
     // Add the file path if a file is provided
-    if (files) {
+    if (files && (files?.length > 0)) {
         updateData.imageUrl = files?.map((file: any) => file.path);
     }
 
