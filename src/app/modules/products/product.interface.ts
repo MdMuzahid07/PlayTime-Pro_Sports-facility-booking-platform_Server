@@ -1,5 +1,3 @@
-
-
 export interface TProduct {
     title: string;
     description: string;

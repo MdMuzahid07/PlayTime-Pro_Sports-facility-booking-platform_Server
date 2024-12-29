@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import httpStatus from "http-status";
+import CustomAppError from "../../errors/CustomAppError";
 import { TOrder } from "./order.interface";
 import OrderModel from "./order.model";
 
@@ -128,6 +130,24 @@ const adminManageSportsEquipmentsOrderStatusFromDB = async (id: string, payload:
 
 
 
+const cancelOrderUser = async (id: string) => {
+
+    const isAlreadyCancelled = await OrderModel.findById(id);
+
+    if (isAlreadyCancelled?.orderStatus === "Cancelled") {
+        throw new CustomAppError(httpStatus.CONFLICT, "this order is already cancelled");
+    };
+
+
+    const result = await OrderModel.findByIdAndUpdate(
+        id,
+        { orderStatus: "Cancelled" },
+        { new: true },
+    );
+
+    return result;
+};
+
 
 export const OrderService = {
     createOrderIntoDB,
@@ -136,5 +156,6 @@ export const OrderService = {
     updateAOrderFromDB,
     deleteAOrderFromDB,
     manageSportsEquipmentsPaymentStatusFromDB,
-    adminManageSportsEquipmentsOrderStatusFromDB
+    adminManageSportsEquipmentsOrderStatusFromDB,
+    cancelOrderUser
 };

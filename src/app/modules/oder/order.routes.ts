@@ -42,10 +42,14 @@ router.patch(
 );
 
 
+router.patch(
+    "/order-cancel-user/:orderId",
+    OrderController.userCancelOrder
+);
+
 router.delete(
     "/:orderId",
     OrderController.deleteAOrder
-
 );
 
 

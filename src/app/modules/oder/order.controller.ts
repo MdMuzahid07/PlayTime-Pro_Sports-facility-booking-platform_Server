@@ -104,6 +104,21 @@ const adminManageOrderStatusUpdate: RequestHandler = tryCatchAsync(async (req: R
 });
 
 
+
+const userCancelOrder: RequestHandler = tryCatchAsync(async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+
+    const result = await OrderService.cancelOrderUser(orderId);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Order status cancelled successfully",
+        data: result
+    });
+});
+
+
 export const OrderController = {
     createOrder,
     getAllOrder,
@@ -111,5 +126,6 @@ export const OrderController = {
     updateAOrder,
     deleteAOrder,
     paymentMethodUpdate,
-    adminManageOrderStatusUpdate
+    adminManageOrderStatusUpdate,
+    userCancelOrder
 };
