@@ -8,7 +8,7 @@ export const initiatePayment = async (paymentData: any) => {
         store_id: config.aamarpay_store_id,
         signature_key: config.aamarpay_signature_key,
         tran_id: paymentData?.transactionId,
-        success_url: "https://sports-facility-booking-platform-ten.vercel.app/api/payment/confirmation",
+        success_url: `https://sports-facility-booking-platform-ten.vercel.app/api/payment/confirmation?transactionId=${paymentData?.transactionId}`,
         fail_url: "https://sports-facility-booking-platform-ten.vercel.app/api/payment/cancel",
         cancel_url: "https://sports-facility-booking-platform-ten.vercel.app/api/payment/cancel",
         amount: paymentData?.payableAmount,
@@ -27,4 +27,23 @@ export const initiatePayment = async (paymentData: any) => {
     });
 
     return res?.data;
+};
+
+
+
+export const paymentVerification = async (tnxId: any) => {
+    try {
+        const response = await axios.get("https://sandbox.aamarpay.com/api/v1/trxcheck/request.php" as string, {
+            params: {
+                store_id: config.aamarpay_store_id,
+                signature_key: config.aamarpay_signature_key,
+                type: "json",
+                request_id: tnxId
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw new Error("Payment verification failed!");
+    }
 };

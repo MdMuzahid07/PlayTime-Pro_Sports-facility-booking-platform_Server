@@ -32,8 +32,10 @@ const createBooking = async (
       config.jwt_access_token_secret_key as string,
     );
     const userId = (decoded as JwtPayload)?.id;
+    const transactionId = `TSXID${Math.random() * 10} ${Date.now()}`;
 
-    const responseAfterSave = await BookingService.createBookingIntoDB(req.body, userId);
+
+    const responseAfterSave = await BookingService.createBookingIntoDB(req.body, userId, transactionId);
 
     const result = responseAfterSave.toObject() as Partial<TBookings>;
 
@@ -53,7 +55,6 @@ const createBooking = async (
     const totalHours = startEndTimeToHoursCalculate(startTime, endTime);
     const isFacilityExists = await FacilityModel.findById(req?.body?.facility);
     const userInfo = await UserModel.findById({ _id: userId });
-    const transactionId = `TSXID${Math.random() * 10} ${Date.now()}`;
     const payableAmount = Number(isFacilityExists?.pricePerHour) * totalHours;
 
     const paymentData = {

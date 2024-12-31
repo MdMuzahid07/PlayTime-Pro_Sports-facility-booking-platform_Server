@@ -6,9 +6,8 @@ import { TBookings } from "./bookings.interface";
 import BookingModel from "./bookings.schema.model";
 import startEndTimeToHoursCalculate from "../../utils/startEndTimeToHoursCalculate";
 
-const createBookingIntoDB = async (payload: TBookings, user: string) => {
+const createBookingIntoDB = async (payload: TBookings, user: string, transactionId: any) => {
   const isFacilityExists = await FacilityModel.findById(payload?.facility);
-
   if (!isFacilityExists) {
     throw new CustomAppError(httpStatus.BAD_REQUEST, "Facility not exists");
   }
@@ -45,6 +44,7 @@ const createBookingIntoDB = async (payload: TBookings, user: string) => {
     ...payload,
     user,
     payableAmount,
+    transactionId
   };
 
   const result = await BookingModel.create(BookingData);

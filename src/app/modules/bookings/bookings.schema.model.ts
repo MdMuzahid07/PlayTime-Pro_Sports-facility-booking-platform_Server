@@ -27,8 +27,11 @@ const BookingSchema = new mongoose.Schema<TBookings>({
   },
   isBooked: {
     type: String,
-    default: "confirmed",
+    default: "",
   },
+  transactionId: {
+    type: String,
+  }
 },
   {
     timestamps: true

@@ -8,6 +8,7 @@ const bookingsValidationSchema = z.object({
   user: z.string().optional(),
   payableAmount: z.number().optional(),
   isBooked: z.string().optional(),
+  transactionId: z.string().optional()
 });
 
 export const BookingsValidation = {
